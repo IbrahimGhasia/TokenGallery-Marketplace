@@ -2,7 +2,7 @@
 
 <b>TokenGallery Marketplace</b> is an NFT (Non-Fungible Token) platform that allows users to create, sell, and buy NFTs using the Polygon (Matic) network. Data associated with the NFTs is stored on IPFS (InterPlanetary File System) using Web3.Storage. This project is built using Next.js and styled with Tailwind CSS, providing a seamless and visually appealing experience for NFT enthusiasts.
 
-<a href="#">Live Demo Link</a>
+<a href="https://token-gallery-marketplace.vercel.app/">Live Demo Link</a>
 
 ## Features
 
