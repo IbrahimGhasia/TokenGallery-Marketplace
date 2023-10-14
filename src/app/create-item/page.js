@@ -2,7 +2,6 @@
 require("dotenv").config();
 import { useState } from "react";
 import { ethers } from "ethers";
-import { create as ipfsHttpClient } from "ipfs-http-client";
 import { Web3Storage } from "web3.storage";
 import { useRouter } from "next/navigation";
 import Web3Modal from "web3modal";

@@ -22,14 +22,14 @@ export default function Navbar() {
 				</Link>
 
 				<Link
-					href={"/"}
+					href={"/my-assets"}
 					className="text-pink-500 text-lg font-semibold hover:text-white hover:bg-pink-500 px-4 py-1 rounded-3xl duration-300"
 				>
 					<p>My Digital Asset</p>
 				</Link>
 
 				<Link
-					href={"/"}
+					href={"/creator-dashboard"}
 					className="text-pink-500 text-lg font-semibold hover:text-white hover:bg-pink-500 px-4 py-1 rounded-3xl duration-300"
 				>
 					<p>Creator Dashboard</p>
