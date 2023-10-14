@@ -18,6 +18,14 @@ export default function Home() {
 		loadNFTs();
 	}, []);
 
+	function shortAddress(address) {
+		const shortenedAddress = `${address.substring(
+			0,
+			6
+		)}...${address.substring(address.length - 4)}`;
+		return shortenedAddress;
+	}
+
 	async function loadNFTs() {
 		const web3Modal = new Web3Modal();
 		const connection = await web3Modal.connect();
@@ -58,24 +66,37 @@ export default function Home() {
 
 	if (loadingState === "loaded" && !nfts.length)
 		return (
-			<h1 className="px-20 py-10 text-3xl text-red-500 font-semibold bg-gray-100">
+			<h1 className="px-20 py-10 text-3xl text-red-500 font-semibold">
 				No assets owned!
 			</h1>
 		);
 
 	return (
 		<div className="flex justify-center">
-			<div className="p-4">
-				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
+			<div className="px-20 py-10 max-w-[1600px]">
+				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
 					{nfts.map((nft, index) => (
 						<div
 							key={index}
-							className="border shadow rounded-xl overflow-hidden"
+							className="border border-black rounded-xl overflow-hidden hover:-translate-y-1 hover:shadow-xl duration-300"
 						>
-							<img src={nft.image} className="rounded" />
-							<div className="p-4 border-t">
-								<p className="text-2xl font-bold">
-									Price - {nft.price} Matic
+							<img
+								src={nft.image}
+								className="h-60 w-96 border-b border-black"
+							/>
+							<div className="p-4">
+								<div>
+									<p className="text-md text-gray-400 font-semibold">
+										Seller: {shortAddress(nft.seller)}
+									</p>
+								</div>
+								<p className="text-4xl text-pink-500 font-semibold">
+									{nft.name}
+								</p>
+							</div>
+							<div className="p-4 border-t border-black bg-pink-50">
+								<p className="text-2xl font-bold text-gray-700">
+									{nft.price} Matic
 								</p>
 							</div>
 						</div>

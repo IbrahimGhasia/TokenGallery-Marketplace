@@ -19,6 +19,14 @@ export default function Home() {
 		loadNFTs();
 	}, []);
 
+	function shortAddress(address) {
+		const shortenedAddress = `${address.substring(
+			0,
+			6
+		)}...${address.substring(address.length - 4)}`;
+		return shortenedAddress;
+	}
+
 	async function loadNFTs() {
 		const web3Modal = new Web3Modal();
 		const connection = await web3Modal.connect();
@@ -67,45 +75,95 @@ export default function Home() {
 
 	return (
 		<div>
-			<div className="p-4">
-				<h2 className="text-2xl py-2">Items Created</h2>
-				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
-					{nfts.map((nft, index) => (
-						<div
-							key={index}
-							className="border shadow rounded-xl overflow-hidden"
-						>
-							<img src={nft.image} className="rounded" />
-							<div className="p-4 border-t">
-								<p className="text-2xl font-bold">
-									Price - {nft.price} Matic
-								</p>
-							</div>
-						</div>
-					))}
-				</div>
-			</div>
-
-			<div className="p-4">
-				{Boolean(sold.length) && (
+			<div className="px-20 py-10 max-w-[1600px]">
+				{Boolean(nfts.length) == true ? (
 					<div>
-						<h2 className="text-2xl py-2">Items Sold</h2>
-						<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
-							{sold.map((nft, index) => (
+						<h2 className="text-2xl font-semibold py-2">
+							Items Created
+						</h2>
+						<hr />
+						<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 pt-4">
+							{nfts.map((nft, index) => (
 								<div
 									key={index}
-									className="border shadow rounded-xl overflow-hidden"
+									className="border border-black rounded-xl overflow-hidden hover:-translate-y-1 hover:shadow-xl duration-300 mt-5"
 								>
-									<img src={nft.image} className="rounded" />
-									<div className="p-4 border-t">
-										<p className="text-2xl font-bold">
-											Price - {nft.price} Matic
+									<img
+										src={nft.image}
+										className="h-60 w-96 border-b border-black"
+									/>
+									<div className="p-4">
+										<div>
+											<p className="text-md text-gray-400 font-semibold">
+												Owner: {shortAddress(nft.owner)}
+											</p>
+										</div>
+
+										<div>
+											<p className="text-4xl text-pink-500 font-semibold">
+												{nft.name}
+											</p>
+										</div>
+									</div>
+									<div className="p-4 bg-pink-50">
+										<p className="text-2xl font-bold text-gray-700">
+											{nft.price} Matic
 										</p>
 									</div>
 								</div>
 							))}
 						</div>
 					</div>
+				) : (
+					<h1 className="text-3xl text-red-500 font-semibold">
+						You have not created any assets !
+					</h1>
+				)}
+			</div>
+
+			<div className="px-20 py-10 max-w-[1600px]">
+				{Boolean(sold.length) == true ? (
+					<div>
+						<h2 className="text-2xl font-semibold py-2">
+							Items Sold
+						</h2>
+						<hr />
+						<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 pt-4">
+							{sold.map((nft, index) => (
+								<div
+									key={index}
+									className="border border-black rounded-xl overflow-hidden hover:-translate-y-1 hover:shadow-xl duration-300 mt-5"
+								>
+									<img
+										src={nft.image}
+										className="h-60 w-96 border-b border-black"
+									/>
+									<div className="p-4">
+										<div>
+											<p className="text-md text-gray-400 font-semibold">
+												Owner: {shortAddress(nft.owner)}
+											</p>
+										</div>
+
+										<div>
+											<p className="text-4xl text-pink-500 font-semibold">
+												{nft.name}
+											</p>
+										</div>
+									</div>
+									<div className="p-4 bg-pink-50">
+										<p className="text-2xl font-bold text-gray-700">
+											{nft.price} Matic
+										</p>
+									</div>
+								</div>
+							))}
+						</div>
+					</div>
+				) : (
+					<h1 className="text-3xl -mt-10 text-red-500 font-semibold">
+						You have not sold any assets yet !
+					</h1>
 				)}
 			</div>
 		</div>

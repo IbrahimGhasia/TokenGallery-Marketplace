@@ -17,9 +17,17 @@ export default function Home() {
 		loadNFTs();
 	}, []);
 
+	function shortAddress(address) {
+		const shortenedAddress = `${address.substring(
+			0,
+			6
+		)}...${address.substring(address.length - 4)}`;
+		return shortenedAddress;
+	}
+
 	async function loadNFTs() {
 		const provider = new ethers.providers.JsonRpcProvider(
-			"https://polygon-mumbai.infura.io/v3/75bccbbeb62b484eb76985ffbd9b181a"
+			`https://polygon-mumbai.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_PROJECT_ID}`
 		);
 		const tokenContract = new ethers.Contract(
 			nftaddress,
@@ -89,30 +97,38 @@ export default function Home() {
 
 	return (
 		<div className="flex justify-center">
-			<div className="px-4 max-w-[1600px]">
-				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
+			<div className="px-20 py-10 max-w-[1600px]">
+				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
 					{nfts.map((nft, index) => (
 						<div
 							key={index}
-							className="border shadow rounded-xl overflow-hidden"
+							className="border border-black rounded-xl overflow-hidden hover:-translate-y-1 hover:shadow-xl duration-300"
 						>
-							<img src={nft.image} />
+							<img
+								src={nft.image}
+								className="h-60 w-96 border-b border-black"
+							/>
 							<div className="p-4">
-								<p className="text-2xl font-semibold h-[64px]">
+								<div>
+									<p className="text-md text-gray-400 font-semibold">
+										Seller: {shortAddress(nft.seller)}
+									</p>
+								</div>
+								<p className="text-4xl text-pink-500 font-semibold">
 									{nft.name}
 								</p>
-								<div className="overflow-hidden h-[70px] font-light">
-									<p className="text-gray-400">
+								<div className="overflow-hidden h-[70px]">
+									<p className="text-lg text-gray-700">
 										{nft.description}
 									</p>
 								</div>
 							</div>
-							<div className="p-4 border-t">
-								<p className="text-2xl mb-4 font-bold text-black">
+							<div className="p-4 border-t border-black bg-pink-50">
+								<p className="text-2xl mb-4 font-bold text-gray-700">
 									{nft.price} MATIC
 								</p>
 								<button
-									className="w-full bg-pink-500 text-white rounded-lg font-bold py-2 px-12"
+									className="w-full bg-pink-500 hover:bg-pink-800 text-white rounded-lg font-bold py-2 px-12 duration-300"
 									onClick={() => buyNft(nft)}
 								>
 									Buy
